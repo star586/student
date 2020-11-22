@@ -281,3 +281,223 @@ Mock.mock('/manager/getreportbyid', 'post', function(options) {
         }
     }
 });
+
+//获取用户总人数、报道人数、普通管理员人数
+Mock.mock('/SystemManager/getNumber','post',function(options){
+    var reg = /userId=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1 == "2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:{
+                userSum:128,
+                ManagerSum:200,
+                finished:56
+            }
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:
+                "获取失败"
+        }
+    }
+})
+
+//新增通知
+Mock.mock('/SystemManager/addInform','post',function(options){
+    var reg = /userId=(.*)&title=(.*)&content=(.*)$/g;
+    options.body.match(reg);    
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:"新增成功"
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"新增失败"
+        }
+    }
+})
+
+//删除通知
+Mock.mock('/SystemManager/deleteInform','post',function(options){
+    var reg=/userId=(.*)&title=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:"删除成功"
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"删除失败"
+        }
+    }
+})
+
+//更新通知
+Mock.mock('/SystemManager/updateInform','post',function(options){
+    var reg=/userId=(.*)&value=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:"更新成功"
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"更新失败"
+        }
+    }
+})
+
+//导入用户（管理员）
+Mock.mock('/SystemManager/importUser','post',function(options){
+    var reg=/userId=(.*)&UserList=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:"导入成功"
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"导入失败"
+        }
+    }
+})
+
+//删除用户（管理员）
+Mock.mock('/SystemManager/DeleteUser','post',function(options){
+    var reg=/number=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:"删除成功"
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"删除失败"
+        }
+    }
+})
+
+//修改用户（管理员）
+Mock.mock('/SystemManager/UpdateUser','post',function(options){
+    var reg=/userId=(.*)&form=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:"修改成功"
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"修改失败"
+        }
+    }
+})
+
+//导入单个用户（管理员）
+Mock.mock('/SystemManager/importOneUser','post',function(options){
+    var reg=/userId=(.*)&form=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:"导入成功"
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"导入失败"
+        }
+    }
+})
+
+//查找用户（管理员）
+Mock.mock('/SystemManager/SearchUser','post',function(options){
+    var reg=/UserNumber=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:{
+                userId:"2019",
+                name:"小王",
+                college:"计算机科学学院",
+                major:"软件工程"
+            }
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"删除失败"
+        }
+    }
+})
+
+//密码修改
+Mock.mock('/SystemManager/UpdatePwd','post',function(options){
+    var reg=/ManagerNumber=(.*)&oldpassword=(.*)&newpassword=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:"密码修改成功"
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"密码修改失败"
+        }
+    }
+})
+
+//退出登录
+Mock.mock('/SystemManager/DeLogin','post',function(options){
+    var reg=/userId=(.*)$/g;
+    options.body.match(reg);
+    if(RegExp.$1==="2018"){
+        return{
+            code:200,
+            message:"操作成功",
+            data:"退出成功"
+        }
+    }else{
+        return{
+            code:500,
+            message:"操作失败",
+            data:"退出失败"
+        }
+    }
+})
+export default Mock;
