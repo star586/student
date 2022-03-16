@@ -1,33 +1,41 @@
 <template>
     <div id="big">
-        <p>现场报道</p>
+        <p id="title">现场报到详情确认</p>
         <div id="find">
-            <span>学号：</span>
+            <span>待确认报到的新生人数：{{valueList.length}}</span>
+            <span id="sno">学号：</span>
             <input type="text" v-model="Id">
-            <button @click="findById">查找</button>
+            <el-button @click="findById" icon="el-icon-search">查找</el-button>
         </div>
-
-        <el-table :header-row-style="getRowClass" :row-style="getRowClass" border 
-        :header-cell-style="{textAlign:'center'}" :cell-style="{textAlign:'center'}"
-        :data="valueList.slice((currentPage-1)*pagesize,currentPage*pagesize)" 
-         id="table">
-            <!-- <el-table-column type="index"></el-table-column> -->
-            <el-table-column prop="school" label="学院"></el-table-column>
-            <el-table-column prop="type" label="专业"></el-table-column>
+        <el-table
+            :data="valueList.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+            stripe
+            :header-cell-style="{textAlign:'center'}" :cell-style="{textAlign:'center'}"
+            @selection-change="handelSelectionChange_two">
+             <el-table-column prop="college" label="学院"></el-table-column>
+            <el-table-column prop="major" label="专业"></el-table-column>
             <el-table-column prop="name" label="姓名"></el-table-column>
-            <el-table-column prop="id" label="学号" sortable></el-table-column>
+            <el-table-column prop="userName" label="学号" sortable></el-table-column>
+            <el-table-column  label="身份证照片" width="200px" >
+                <template slot-scope="scope">
+                    <el-popover placement="left" title="" trigger="click">
+                        <!-- :src="scope.row.proof" -->
+                        <img  :src="scope.row.photo" style="width: 500px;height: 300px">
+                        <img slot="reference" :src="scope.row.photo" style="width: 160px;height: 100px">
+                    </el-popover>
+                </template>
+            </el-table-column>
             <el-table-column label="操作" >
                 <template slot-scope="scope">
                     <div @click="sure(scope.row)" type="text" class="sure">确认报道</div>
                 </template>
             </el-table-column>
-            
         </el-table>
         <el-pagination
         @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page="currentPage"
-        :page-sizes="[10, 20, 30, 40, 50]"
+        :page-sizes="[5, 10, 15, 20, 30]"
         :page-size="pagesize"
         :total="valueList.length"
         layout="total, sizes, prev, pager, next, jumper"
@@ -47,7 +55,7 @@ export default {
             Id:"",
             valueList:[],
             currentPage:1,
-            pagesize:10,
+            pagesize:5,
         }
     },
     methods:{
@@ -60,88 +68,134 @@ export default {
         handleCurrentChange: function(currentPage) {
             this.currentPage = currentPage;
         },
+        handelSelectionChange_two(val) {
+                this.notice_two_delete = val;
+            },
+            //读取当前所规定的页面大小
+            handelSizeChange_two(val) {
+                this.pagesize_two = val;
+            },
+            //读取选中的当前页
+            current_change_two(currpage) {
+                this.currpage_two = currpage;
+            },
         findById(){
-            var obj = {
-                'id': this.Id
-            };
-            var qs = require('qs');
-            this.axios.post("/manager/getreportbyid",qs.stringify(obj),{
-            // this.axios.post("/baodao/find",qs.stringify(obj),{
-                withCredentials:true
-            }).then(res=>{
-                console.log(res.data)
-                if(res.data.msg!="获取信息成功"){
-                    this.$message.error({
-                        message: res.data.msg,
-                        duration:1500
-                    });
-                }else{
-                    // console.log(res.data)
-                    this.valueList=res.data.detail;
+            var index=0;
+            var i=0;
+            for(i=0;i<this.$store.state.list.length;i++){
+                var t=this.$store.state.list[i].frontendMenuId;
+                // console.log(t)
+                if(t==29){
+                    index=1;
                 }
-            }).catch(err=>{
-                console.log(err);
-            });
-        },
-        sure(item){
-            // console.log(item)
-            var obj = {
-                'id': item.id
-            };
-            var qs = require('qs');
-            // console.log(id);
-            this.$confirm('确认报道?', '提示', {
-                confirmButtonText: '确定',
-                cancelButtonText: '取消',
-                // type: 'warning'
-            }).then(() => {
-                this.$message({
-                    type: 'success',
-                    message: '确认成功!',
-                    duration:1500
-                });
-                this.axios.post("/manager/surereport",qs.stringify(obj),{
-                    withCredentials:true
-                }).then(res=>{
-                    // console.log(res.data.detail)
-                    if(res.data.msg!="确认信息成功"){
+            }
+            if(index==1){
+            if(this.Id==""){
+                this.getlist();
+            }else{
+                let param = new URLSearchParams()
+                param.append("username",this.Id);
+                // console.log(this.Id)
+                // this.axios.post("/users/getreportnowbyid",param,
+                this.axios.post(this.$apiUrl +"/users/getreportnowbyusername",param,
+                    {
+                headers:{'Authorization': 'Bearer ' +localStorage.getItem('token'+this.$store.state.id),}
+            }
+                ).then(res=>{
+                    console.log(res.data)
+                    if(res.data.code!=0){
                         this.$message.error({
                             message: res.data.msg,
                             duration:1500
                         });
                     }else{
-                        var index = this.valueList.findIndex(i =>{
-                            if(i.id==item.id){
-                                return true
-                            }
-                        });
-                        this.valueList.splice(index,1)
-                        // console.log(res.data)
-                        // this.valueList.splice(index,1);
+                        var obj=[];
+                        obj.push(res.data.data);
+                        // obj[0].photo="data:image/jpeg;base64,"+obj[0].photo;
+                        this.valueList=obj;
+                        // console.log(obj[0].photo)
                     }
                 }).catch(err=>{
                     console.log(err);
                 });
-            }).catch(() => {
-                this.$message({
-                    type: 'info',
-                    message: '已取消确认',
+            }
+            }else{
+                this.$message.error({
+                    message: "无该权限！",
                     duration:1500
-                });          
-            });
-        }
-    },
-    mounted(){
-        var obj = {
-            'id': this.$store.state.id
-        };
-        var qs = require('qs');
-        this.axios.post("/manager/getreport",qs.stringify(obj),{
-        // this.axios.post("/baodao/find",qs.stringify(obj),{
-            withCredentials:true
+                });
+            }
+        },
+        sure(item){
+            // console.log(item)
+            var index=0;
+            var i=0;
+            for(i=0;i<this.$store.state.list.length;i++){
+                var t=this.$store.state.list[i].frontendMenuId;
+                // console.log(t)
+                if(t==30){
+                    index=1;
+                }
+            }
+            if(index==1){
+                let param = new URLSearchParams()
+                param.append("username",item.userName);
+                // console.log(id);
+                this.$confirm('确认报道?', '提示', {
+                    confirmButtonText: '确定',
+                    cancelButtonText: '取消',
+                    type: 'warning'
+                }).then(() => {
+                    
+                    this.axios.post(this.$apiUrl +"/users/reportconfirm",param,{
+                headers:{'Authorization': 'Bearer ' +localStorage.getItem('token'+this.$store.state.id),}
+            }).then(res=>{
+                        console.log(res.data)
+                        if(res.data.code!=0){
+                            this.$message.error({
+                                message: res.data.msg,
+                                duration:1500
+                            });
+                        }else{
+                            this.$message({
+                                type: 'success',
+                                message: '确认成功!',
+                                duration:1500
+                            });
+                            var index = this.valueList.findIndex(i =>{
+                                if(i.userName==item.userName){
+                                    return true
+                                }
+                            });
+                            this.valueList.splice(index,1)
+                            // console.log(res.data)
+                            // this.valueList.splice(index,1);
+                        }
+                    }).catch(err=>{
+                        console.log(err);
+                    });
+                }).catch(() => {
+                    this.$message({
+                        type: 'info',
+                        message: '已取消确认',
+                        duration:1500
+                    });          
+                });
+            }else{
+                this.$message.error({
+                    message: "无该权限！",
+                    duration:1500
+                });
+            }
+        },
+        getlist(){
+            let param = new URLSearchParams()
+            param.append("username",this.$store.state.id);
+            this.axios.post(this.$apiUrl +"/users/getreportnow",param,{
+            headers:{'Authorization': 'Bearer ' +localStorage.getItem('token'+this.$store.state.id),}
         }).then(res=>{
             console.log(res.data)
-            if(res.data.msg!="获取信息成功"){
+            if(res.data.code!=0){
                 this.$message.error({
                     message: res.data.msg,
                     duration:1500
@@ -149,32 +203,43 @@ export default {
                 // this.$router.push('/login');
             }else{
                 // console.log(res.data)
-                this.valueList=res.data.detail;
+                this.valueList=res.data.data;
             }
         }).catch(err=>{
             console.log(err);
         });
+        }
+    },
+    mounted(){
+        // var obj = {
+        //     'id': this.$store.state.id
+        // };
+        this.getlist();
     }
 }
 </script>
 
 
 <style lang="less" scoped>
+#sno{
+    margin-left: 48%;
+}
+#title {
+    font-size: 30px;
+    height: 70px;
+    line-height: 70px;
+    font-weight: normal;
+    text-align: center;
+    border-bottom: 0.5px solid gainsboro;
+}
     #big{
-        width:70%;
-        // min-height:400px;
-        border: 0.5px solid black;
-        background-color: #FFFDE8;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 30px;
-        margin-bottom: 30px;
+        width:1020px;
+        background-color: #F4F8F6;
+        // margin-top: 20px;
+        // padding-top: 20px;
         #find{
-            margin-left: 5%;
-            margin-top: 20px;
-            span{
-                font-weight: bold;
-            }
+            margin-left: 3%;
+            margin-top:20px;
             input{
                 margin-left: 10px;
                 height: 30px;
@@ -183,7 +248,8 @@ export default {
             button{
                 height: 30px;
                 width: 80px;
-                background-color: #02A7F0;
+                background-color: #409eff;
+                opacity:  0.9;
                 color: white;
                 outline: none;
                 border: none;
@@ -193,72 +259,35 @@ export default {
         }
     }
     #page{
-        padding-left: 5%;
+        padding-left: 3%;
         padding-bottom: 20px;
     }
     .el-table{
-        width: 90%;
+        width: 95%;
         margin-left: auto;
         margin-right: auto;
         margin-top: 20px;
     }
-    /deep/ .el-table,
-    /deep/ .el-table tr,
-    /deep/ .el-table td{
-        background-color: transparent;
+    // /deep/ .el-table,
+    // /deep/ .el-table tr,
+    // /deep/ .el-table td{
+    //     background-color: white;
+    //     // opacity: 0.9;
         
-    }
-    /deep/ .el-table th{
-        background-color: #f3ffdb;
-    }
+    // }
+    // /deep/ .el-table th{
+    //     // background-color: #f3ffdb;
+    //     background-color: #E5FFF2;
+    // }
     .sure{
         color: #0099FF;
         cursor: pointer;
     }
-	/* 表格内背景颜色 */
 	/deep/ .el-table__header tr,
     /deep/ .el-table__header th {
-            padding: 0;
-            height: 40px;
-            line-height: 40px;
-        }
-    // /deep/.el-table__body tr,
-    // /deep/ .el-table__body td {
-    //         // padding: 0;
-    //         // height: 30px;
-    //         // line-height: 30px;
-    //     }
-
-	/* 双数行背景颜色 */
-	// .el-table--striped .el-table__body tr.el-table__row--striped td {
-
-	// 	background-color: #fff;
-	// 	background-color: rgba(148, 144, 144, 0.3)
-	// }
-
-	/* 使表格背景透明 */
-	// .el-table th,
-	// .el-table tr {
-	// 	background-color: transparent;
-	// }
-
-	/* 删除表格下横线 */
-	// .el-table::before {
-	// 	left: 0;
-	// 	bottom: 0;
-	// 	width: 100%;
-	// 	height: 0px;
-	// }
-
-	/* 表格表头字体颜色 */
-	// /deep/ .el-table thead tr{
-    //     height: 30px;
-	// 	// color: black;
-	// 	// font-weight: 500;
-	// 	// background-color: #F3FFDB;
-	// }s
-
-    
+        padding: 0;
+        height: 50px;
+    }
     p{
         font-size: 30px;
         text-align: center;
@@ -267,5 +296,7 @@ export default {
         line-height: 60px;
         border-bottom: 1px dashed black;
     }
-    
+    /deep/ .el-button [class*=el-icon-]+span{
+        margin-left: 2px;
+    }
 </style>

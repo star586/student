@@ -7,303 +7,135 @@ Mock.setup({
 // Mock.mock( rurl, rtype, function( options ) )记录用于生成响应数据的函数。当拦截到匹配 rurl 和 rtype 的 Ajax 请求时，函数 function(options) 将被执行，并把执行结果作为响应数据返回。
 
 //登录
-Mock.mock('/login', 'post', function(options) {
-    // console.log(options.body);
-    var reg = /username=([0-9]{10})&password=(.*)$/g;
-    options.body.match(reg);
-    // console.log(t)
-    // console.log(RegExp.$1);
-    // console.log(RegExp.$2);
-    if (RegExp.$2 == "123456") {
-        if (RegExp.$1 == "2018110103") {
-            return {
-                "msg": "登录成功",
-                "success": true,
-                "detail": {
-                    "url": "/student/home",
-                    "list": [{
-                            "link": "/student/home",
-                            "name": "首页",
-                            "code": 1
-                        },
-                        {
-                            "link": "/student/strategy",
-                            "name": "校园攻略",
-                            "code": 1
-                        },
-                        {
-                            "link": "/student/information",
-                            "name": "学生信息",
-                            "code": 1
-                        },
-                        {
-                            "link": "/student/report",
-                            "name": "学生报道",
-                            "code": 1
-                        },
-                        {
-                            "link": "/student/affair",
-                            "name": "事务处理",
-                            "code": 1
-                        },
-                        {
-                            "link": "/student/tuition",
-                            "name": "学费支付",
-                            "code": 1
-                        },
-                        {
-                            "link": "/manager/home",
-                            "name": "首页",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/report",
-                            "name": "现场报道",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/status",
-                            "name": "学生状态",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/pay",
-                            "name": "现场缴费",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/findbyid",
-                            "name": "按学号查找信息",
-                            "code": 0
-                        },
-                        {
-                            "link": "/smanager/home",
-                            "name": "首页",
-                            "code": 0
-                        },
-                        {
-                            "link": "/smanager/informm",
-                            "name": "学校通知管理",
-                            "code": 0
-                        },
-                        {
-                            "link": "/smanager/userm",
-                            "name": "用户管理",
-                            "code": 0
-                        },
-                        {
-                            "link": "/smanager/managerm",
-                            "name": "普通管理员管理",
-                            "code": 0
-                        }
-                    ]
-                }
-            }
-        } else if (RegExp.$1 == "2018110102") {
-            return {
-                "msg": "登录成功",
-                "success": true,
-                "detail": {
-                    "url": "/manager/home",
-                    "list": [{
-                            "link": "/student/home",
-                            "name": "首页",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/strategy",
-                            "name": "校园攻略",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/information",
-                            "name": "学生信息",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/report",
-                            "name": "学生报道",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/affair",
-                            "name": "事务处理",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/tuition",
-                            "name": "学费支付",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/home",
-                            "name": "首页",
-                            "code": 1
-                        },
-                        {
-                            "link": "/manager/status",
-                            "name": "学生状态",
-                            "code": 1
-                        },
-                        {
-                            "link": "/manager/report",
-                            "name": "现场报道",
-                            "code": 1
-                        },
-                        {
-                            "link": "/manager/pay",
-                            "name": "现场缴费",
-                            "code": 1
-                        },
-                        {
-                            "link": "/manager/findbyid",
-                            "name": "按学号查找信息",
-                            "code": 1
-                        },
-                        {
-                            "link": "/smanager/home",
-                            "name": "首页",
-                            "code": 0
-                        },
-                        {
-                            "link": "/smanager/informm",
-                            "name": "学校通知管理",
-                            "code": 0
-                        },
-                        {
-                            "link": "/smanager/userm",
-                            "name": "用户管理",
-                            "code": 0
-                        },
-                        {
-                            "link": "/smanager/managerm",
-                            "name": "普通管理员管理",
-                            "code": 0
-                        }
-                    ]
-                }
-            }
-        } else if (RegExp.$1 == "2018110101") {
-            return {
-                "msg": "登录成功",
-                "success": true,
-                "detail": {
-                    "url": "/smanager/home",
-                    "list": [{
-                            "link": "/student/home",
-                            "name": "首页",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/strategy",
-                            "name": "校园攻略",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/information",
-                            "name": "学生信息",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/report",
-                            "name": "学生报道",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/affair",
-                            "name": "事务处理",
-                            "code": 0
-                        },
-                        {
-                            "link": "/student/tuition",
-                            "name": "学费支付",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/home",
-                            "name": "首页",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/report",
-                            "name": "现场报道",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/status",
-                            "name": "学生状态",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/pay",
-                            "name": "现场缴费",
-                            "code": 0
-                        },
-                        {
-                            "link": "/manager/findbyid",
-                            "name": "按学号查找信息",
-                            "code": 0
-                        },
-                        {
-                            "link": "/smanager/home",
-                            "name": "首页",
-                            "code": 1
-                        },
-                        {
-                            "link": "/smanager/informm",
-                            "name": "学校通知管理",
-                            "code": 1
-                        },
-                        {
-                            "link": "/smanager/userm",
-                            "name": "用户管理",
-                            "code": 1
-                        },
-                        {
-                            "link": "/smanager/managerm",
-                            "name": "普通管理员管理",
-                            "code": 1
-                        }
-                    ]
-                }
-            }
-        } else {
-            return {
-                "msg": "用户名或密码错误",
-                "success": false,
-                "detail": null
-            }
-        }
-    } else {
-        return {
-            "msg": "用户名或密码错误",
-            "success": false,
-            "detail": null
-        }
-    }
-});
+// Mock.mock('/login', 'post', function(options) {
+//     // console.log(options.body);
+//     var reg = /username=([0-9]{10})&password=(.*)$/g;
+//     options.body.match(reg);
+//     // console.log(t)
+//     // console.log(RegExp.$1);
+//     // console.log(RegExp.$2);
+//     if (RegExp.$2 == "123456") {
+//         if (RegExp.$1 == "2018110103") {
+//             return {
+//                 "msg": "登录成功",
+//                 "success": true,
+//                 "detail": {
+//                     "list": [{
+//                             "link": "/main/report",
+//                             "name": "报道流程",
+//                             "code": 1
+//                         },
+//                         {
+//                             "link": "/main/state",
+//                             "name": "状态确认",
+//                             "code": 0
+//                         },
+//                         {
+//                             "link": "/main/manage",
+//                             "name": "高级管理",
+//                             "code": 0
+//                         },
+//                         {
+//                             "link": "/main/person",
+//                             "name": "个人中心",
+//                             "code": 1
+//                         }
+//                     ]
+//                 }
+//             }
+//         } else if (RegExp.$1 == "2018110102") {
+//             return {
+//                 "msg": "登录成功",
+//                 "success": true,
+//                 "detail": {
+//                     "list": [{
+//                             "link": "/main/report",
+//                             "name": "报道流程",
+//                             "code": 0
+//                         },
+//                         {
+//                             "link": "/main/state",
+//                             "name": "状态确认",
+//                             "code": 1
+//                         },
+//                         {
+//                             "link": "/main/manage",
+//                             "name": "高级管理",
+//                             "code": 0
+//                         },
+//                         {
+//                             "link": "/main/person",
+//                             "name": "个人中心",
+//                             "code": 1
+//                         }
+//                     ]
+//                 }
+//             }
+//         } else if (RegExp.$1 == "2018110101") {
+//             return {
+//                 "msg": "登录成功",
+//                 "success": true,
+//                 "detail": {
+//                     "list": [{
+//                             "link": "/main/report",
+//                             "name": "报道流程",
+//                             "code": 0
+//                         },
+//                         {
+//                             "link": "/main/state",
+//                             "name": "状态确认",
+//                             "code": 0
+//                         },
+//                         {
+//                             "link": "/main/manage",
+//                             "name": "高级管理",
+//                             "code": 1
+//                         },
+//                         {
+//                             "link": "/main/person",
+//                             "name": "个人中心",
+//                             "code": 1
+//                         }
+//                     ]
+//                 }
+//             }
+//         } else {
+//             return {
+//                 "msg": "用户名或密码错误",
+//                 "success": false,
+//                 "detail": null
+//             }
+//         }
+//     } else {
+//         return {
+//             "msg": "用户名或密码错误",
+//             "success": false,
+//             "detail": null
+//         }
+//     }
+// });
 
 //学号查找
 Mock.mock('/fingid', 'post', function(options) {
     // console.log(options.body);
-    var reg = /id=(.*)$/g;
+    var reg = /{"id":"(.*)"}$/g;
     options.body.match(reg);
     // console.log(t)
     // console.log(RegExp.$1);
     // console.log(RegExp.$2);
     if (RegExp.$1 == "510111111111111111") {
         return {
-            "msg": "查询成功",
+            "message": "查询成功",
             "success": true,
-            "detail": {
-                "id": "2018110103"
+            "data": {
+                "username": "2018110103"
             }
         }
     } else {
         return {
-            "msg": "该用户不存在",
+            "message": "该用户不存在",
             "success": false,
-            "detail": null
+            "data": null
         }
     }
 });
@@ -355,6 +187,226 @@ Mock.mock('/manager/getstatus', 'post', function(options) {
         }
     }
 });
+
+
+//查找现场报道信息
+Mock.mock('/manager/getpaybyid', 'post', function(options) {
+    var reg = /id=(.*)$/g;
+    options.body.match(reg);
+    if (RegExp.$1 == "2018110111") {
+        return {
+            "msg": "获取信息成功",
+            "success": true,
+            "detail": [{
+                "school": "计算机科学学院",
+                "type": "软件工程",
+                "name": "ccx",
+                "id": "2018110111",
+                "major": "绿色通道",
+                "proof": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606560097117&di=1116cbcb436b8e4a1eed4e8553de597e&imgtype=0&src=http%3A%2F%2Fa4.att.hudong.com%2F27%2F67%2F01300000921826141299672233506.jpg"
+            }]
+        }
+    } else if (RegExp.$1 == "2018110112") {
+        return {
+            "msg": "获取信息成功",
+            "success": true,
+            "detail": [{
+                "school": "计算机科学学院",
+                "type": "软件工程",
+                "name": "ds",
+                "id": "2018110112",
+                "major": "普通学生",
+                "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+            }]
+        }
+    } else {
+        return {
+            "msg": "该用户不存在",
+            "success": false,
+            "detail": null
+        }
+    }
+});
+
+//获取学费支付状况
+Mock.mock('/manager/getpay', 'post', function(options) {
+    var reg = /id=(.*)$/g;
+    options.body.match(reg);
+    if (RegExp.$1 == "2018110102") {
+        return {
+            "msg": "获取信息成功",
+            "success": true,
+            "detail": [{
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ccx",
+                    "id": "2018110111",
+                    "major": "绿色通道",
+                    "proof": "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1606560097117&di=1116cbcb436b8e4a1eed4e8553de597e&imgtype=0&src=http%3A%2F%2Fa4.att.hudong.com%2F27%2F67%2F01300000921826141299672233506.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "li",
+                    "id": "2018110112",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "wang",
+                    "id": "2018110113",
+                    "major": "绿色通道",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "绿色通道",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "绿色通道",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "绿色通道",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "绿色通道",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                }, {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "绿色通道",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "绿色通道",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "绿色通道",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                }, {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114",
+                    "major": "普通学生",
+                    "proof": "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3361879810,3578970602&fm=26&gp=0.jpg"
+                },
+
+            ]
+        }
+    } else {
+        return {
+            "msg": "获取信息失败",
+            "success": false,
+            "detail": null
+        }
+    }
+});
+
 //获取现场报道
 Mock.mock('/manager/getreport', 'post', function(options) {
     var reg = /id=(.*)$/g;
@@ -494,11 +546,150 @@ Mock.mock('/manager/getreport', 'post', function(options) {
     }
 });
 
+
+//获取完成情况
+Mock.mock('/manager/test', 'post', function(options) {
+    var reg = /id=(.*)$/g;
+    options.body.match(reg);
+    if (RegExp.$1 == "2018110102") {
+        return {
+            "msg": "获取信息成功",
+            "success": true,
+            "detail": [{
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ccx",
+                    "id": "2018110111"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "li",
+                    "id": "2018110112"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "wang",
+                    "id": "2018110113"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                }, {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                }, {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+                {
+                    "school": "计算机科学学院",
+                    "type": "软件工程",
+                    "name": "ds",
+                    "id": "2018110114"
+                },
+
+            ]
+        }
+    } else {
+        return {
+            "msg": "获取信息失败",
+            "success": false,
+            "detail": null
+        }
+    }
+});
 //确认现场报道
 Mock.mock('/manager/surereport', 'post', function(options) {
     var reg = /id=(.*)$/g;
     options.body.match(reg);
-    if (RegExp.$1 == "2018110112" || RegExp.$1 == "2018110111" || RegExp.$1 == "2018110113" || RegExp.$1 == "2018110114") {
+    if (RegExp.$1 == "2018110112" || RegExp.$1 == "1000" || RegExp.$1 == "2018110113" || RegExp.$1 == "2018110114") {
         return {
             "msg": "确认信息成功",
             "success": true,
@@ -830,4 +1021,26 @@ Mock.mock('/SystemManager/DeLogin', 'post', function(options) {
         }
     }
 })
+
+
+//密码修改
+Mock.mock('/updatePwd', 'post', function(options) {
+    console.log(options.body);
+    var reg = /email=(.*)&code=(.*)&password=(.*)$/g;
+    options.body.match(reg, RegExp.$1, RegExp.$2);
+    if (RegExp.$1 === "2540365386%40qq.com" && RegExp.$2 === "123456") {
+        return {
+            code: 200,
+            message: "修改成功",
+            data: "密码修改成功"
+        }
+    } else {
+        return {
+            code: 500,
+            message: "修改失败",
+            data: "密码修改失败"
+        }
+    }
+})
+
 export default Mock;

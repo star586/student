@@ -1,7 +1,9 @@
 <template>
     <div id="big">
-        <p>学生报道完成状态</p>
+        
         <div id="form">
+            <p id="title">报到状态统计</p>
+            
             <div>
                 <div id="form1"></div>
             </div>
@@ -34,23 +36,15 @@ export default {
         require('echarts/lib/component/title');
 
         // 基于准备好的dom，初始化echarts实例
+        let param = new URLSearchParams()
+            param.append("username",this.$store.state.id);
         var chart1 = echarts.init(document.getElementById('form1'));
         var chart2 = echarts.init(document.getElementById('form2'));
-        // 绘制图表
-        // "sum": 1300,
-        //         "infro": 1080,
-        //         "reportinfro":890,
-        //         "reportnow":760,
-        //         "affair":680,
-        //         "pay":555
-        var obj = {
-            'id': this.$store.state.id
-        };
-        var qs = require('qs');
-        this.axios.post("/manager/getstatus",qs.stringify(obj),{
-            withCredentials:true
+        this.axios.post(this.$apiUrl +"/users/getreportstatus",param,{
+            headers:{'Authorization': 'Bearer ' +localStorage.getItem('token'+this.$store.state.id),}
         }).then(res=>{
-            if(res.data.msg!="获取信息成功"){
+            console.log(res.data)
+            if(res.data.code!=0){
                 this.$message.error({
                     message: res.data.msg,
                     duration:1500
@@ -79,7 +73,7 @@ export default {
                         {
                             type: 'bar',
                             name: '已完成人数',
-                            data: [res.data.detail.infro, res.data.detail.reportinfro, res.data.detail.reportnow, res.data.detail.affair,res.data.detail.pay],
+                            data: [res.data.data.infocount, res.data.data.reportinfocount, res.data.data.reportnowcount, res.data.data.affaircount,res.data.data.paycount],
                             itemStyle:{
                                 normal:{
                                     color:function(params){
@@ -126,7 +120,7 @@ export default {
                         {
                             type: 'bar',
                             name: '未完成人数',
-                            data: [res.data.detail.sum-res.data.detail.infro, res.data.detail.sum-res.data.detail.reportinfro, res.data.detail.sum-res.data.detail.reportnow, res.data.detail.sum-res.data.detail.affair,res.data.detail.sum-res.data.detail.pay],
+                            data: [res.data.data.sum-res.data.data.infocount, res.data.data.sum-res.data.data.reportinfocount, res.data.data.sum-res.data.data.reportnowcount, res.data.data.sum-res.data.data.affaircount,res.data.data.sum-res.data.data.paycount],
                             itemStyle:{
                                 normal:{
                                     color:function(params){
@@ -158,21 +152,22 @@ export default {
 
 
 <style lang="scss" scoped>
-    #big{
-        width:70%;
-        min-height:400px;
-        border: 0.5px solid black;
-        background-color: #FFFDE8;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 30px;
-        margin-bottom: 30px;
+#title {
+    font-size: 30px;
+    height: 70px;
+    line-height: 70px;
+    font-weight: normal;
+    text-align: center;
+    border-bottom: 0.5px solid gainsboro;
+}
         #form{
-            padding-top: 20px;
-            width: 100%;
+            // margin-top: 20px;
+            // padding-top: 20px;
+            min-width: 600px;
             margin-left: auto;
             margin-right: auto;
-            padding-left: 5%;
+            // padding-left: 10px;
+            background-color: #F4F8F6;
             div{
                 width: 50%;
                 display: inline-block;
@@ -190,8 +185,6 @@ export default {
                 }
             }        
         }
-        
-    }
     p{
         font-size: 30px;
         text-align: center;

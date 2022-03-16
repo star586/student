@@ -2,63 +2,60 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 // import store from '../store'
 const Message = () =>
-    import ('../views/Message.vue')
-const Login = () =>
-    import ('../components/Login.vue')
+    import ('../views/Message/Message.vue')
+const MsgList = () =>
+    import ('../views/Message/MsgList.vue')
+const MsgValue = () =>
+    import ('../views/Message/MsgValue.vue')
+    // const Login = () =>
+    //     import ('../components/Login.vue')
 const Log = () =>
-    import ('../views/Login/Log.vue')
+    import ('../views/Main/Login/Log.vue')
 const FindId = () =>
-    import ('../views/Login/FindId.vue')
+    import ('../views/Main/Login/FindId.vue')
 const FindPassword = () =>
-    import ('../views/Login/FindPassword.vue')
+    import ('../views/Main/Login/FindPassword.vue')
 
-const Home = () =>
-    import ('../views/Student/Home.vue')
+// const StuReportHome = () =>
+//     import ('../views/Student/Report/Home.vue')
 const Affair = () =>
-    import ('../views/Student/Affair.vue')
-const Information = () =>
-    import ('../views/Student/Information.vue')
-const Report = () =>
-    import ('../views/Student/Report.vue')
-const Strategy = () =>
-    import ('../views/Student/Strategy.vue')
-const Tuition = () =>
-    import ('../views/Student/Tuition.vue')
-const Modify_info = () =>
-    import ('../views/Student/Modify_info.vue')
-const Check_info = () =>
-    import ('../views/Student/Check_info.vue')
+    import ('../views/Student/Report/Affair.vue')
+const ReportInfo = () =>
+    import ('../views/Student/Report/ReportInfo.vue')
+const ReportNow = () =>
+    import ('../views/Student/Report/ReportNow.vue')
+const ReInfo = () =>
+    import ('../views/Student/Report/Information.vue')
+
+
 const Localpay = () =>
-    import ('../views/Student/localpay.vue')
+    import ('../views/Student/Report/localpay.vue')
+    // const StuPersonHome = () =>
+    //     import ('../views/Student/Person/Home.vue')
+const StuInfo = () =>
+    import ('../views/Student/Person/Information.vue')
 
 
-const UpdatePssword = () =>
-    import ('../components/UpdatePwd.vue')
-
-const SMHome = () =>
-    import ('../views/SManager/Home.vue')
-const InformM = () =>
-    import ('../views/SManager/InformM.vue')
-const ManagerM = () =>
-    import ('../views/SManager/ManagerM.vue')
-const UserM = () =>
-    import ('../views/SManager/UserM.vue')
+const ManageUser = () =>
+    import ('../views/SManager/ManageUser/Home.vue')
 const Builduser = () =>
-    import ('../views/SManager/Builduser.vue')
-const Buildadmin = () =>
-    import ('../views/SManager/Buildadmin.vue')
+    import ('../views/SManager/ManageUser/Builduser.vue')
 const Muser = () =>
-    import ('../views/SManager/Muser.vue')
-const Madmin = () =>
-    import ('../views/SManager/Madmin.vue')
+    import ('../views/SManager/ManageUser/Muser.vue')
 const BasicUser = () =>
-    import ('../views/SManager/BasicUser.vue')
+    import ('../views/SManager/ManageUser/BasicUser.vue')
 const BasicAdmin = () =>
-    import ('../views/SManager/BasicAdmin.vue')
-const Caogao = () =>
-    import ('../views/SManager/caogao.vue')
+    import ('../views/SManager/ManageUser/BasicAdmin.vue')
+const Mrole = () =>
+    import ('../views/SManager/ManageUser/Mrole.vue')
+const Madetails = () =>
+    import ('../views/SManager/ManageUser/Madetails.vue')
+const Statistic = () =>
+    import ('../views/SManager/ManageUser/Statistic.vue')
 
-const MHome = () =>
+
+
+const StateHome = () =>
     import ('../views/Manager/Home.vue')
 const Pay = () =>
     import ('../views/Manager/Pay.vue')
@@ -66,167 +63,363 @@ const MReport = () =>
     import ('../views/Manager/Report.vue')
 const Status = () =>
     import ('../views/Manager/Status.vue')
+const ManStuInfo = () =>
+    import ('../views/Manager/Information.vue')
 const FindById = () =>
     import ('../views/Manager/FindById.vue')
 
-const SSHome = () =>
-    import ('../components/Home.vue')
+const UpdatePwd = () =>
+    import ('../components/UpdatePwd.vue')
+const Main = () =>
+    import ('../components/Main.vue')
+const Mainhome = () =>
+    import ('../views/Main/Home.vue')
+const Person = () =>
+    import ('../components/Person.vue')
+const Report = () =>
+    import ('../components/Report.vue')
+    // const Manage = () =>
+    //     import ('../components/Manage.vue')
+const State = () =>
+    import ('../components/State.vue')
+
+const Excel = () =>
+    import ('../components/Excel.vue')
+
+const SchoolMsg = () =>
+    import ('../views/SManager/Msg/SchoolMsg.vue')
+const AddMsg = () =>
+    import ('../views/SManager/Msg/AddMessage.vue')
+const SchoolStrategy = () =>
+    import ('../views/SManager/Msg/SchoolStrategy.vue')
+const PayMsg = () =>
+    import ('../views/SManager/Msg/PayMsg.vue')
+const ReportMsg = () =>
+    import ('../views/SManager/Msg/ReportMsg.vue')
+const MsgMHome = () =>
+    import ('../views/SManager/Msg/Home.vue')
+const MsgMessage = () =>
+    import ('../views/SManager/Msg/Message.vue')
+
+
+const LogMHome = () =>
+    import ('../views/SManager/LogManage/Home.vue')
+const UserLog = () =>
+    import ('../views/SManager/LogManage/UserLog.vue')
+const SysLog = () =>
+    import ('../views/SManager/LogManage/SysLog.vue')
+
 
 Vue.use(VueRouter)
 
 const routes = [{
-        path: '',
-        component: Login,
+        path: '/',
+        component: Main,
+        // meta: { title: '首页' },
+        children: [{
+            path: '',
+            component: Mainhome,
+            meta: { title: '首页' },
+        }, ]
+    },
+    {
+        path: '/excel',
+        component: Excel,
+        meta: { title: '导入' },
+    },
+    {
+        path: '/main',
+        component: Main,
+        meta: { title: '首页' },
         children: [{
                 path: '',
+                component: Mainhome,
+                meta: { title: '首页' },
+            },
+            {
+                path: 'state',
+                component: State,
+                meta: { title: '状态确认' },
+                children: [{
+                        path: '',
+                        component: StateHome,
+                        meta: { title: '新生统计详情' },
+                    },
+                    {
+                        path: 'pay',
+                        component: Pay,
+                        meta: { title: '现场缴费' },
+                    },
+                    {
+                        path: 'status',
+                        component: Status,
+                        meta: { title: '学生状态' },
+                    },
+                    {
+                        path: 'report',
+                        component: MReport,
+                        meta: { title: '现场报到' },
+                    },
+                    {
+                        path: 'information',
+                        component: ManStuInfo,
+                        meta: { title: '学生信息' },
+                        children: [{
+                            path: 'findbyid',
+                            component: FindById,
+                            meta: { title: '信息详情' },
+                        }]
+                    },
+
+                ]
+            },
+            {
+                path: 'msgmhome',
+                component: MsgMHome,
+                meta: { title: '通知管理' },
+                children: [{
+                        path: '',
+                        // name: '学校通知',
+                        component: SchoolMsg,
+                        meta: { title: '学校通知' },
+                    },
+                    {
+                        path: 'schoolmsg',
+                        component: SchoolMsg,
+                        // name: '学校通知',
+                        meta: { title: '学校通知' },
+                        children: [{
+                                path: 'message',
+                                component: MsgMessage,
+                                meta: { title: '修改通知' },
+                            },
+                            {
+                                path: 'addmsg',
+                                component: AddMsg,
+                                meta: { title: '增加通知' },
+                            },
+                        ]
+                    },
+                    {
+                        path: 'schoolstrategy',
+                        component: SchoolStrategy,
+                        // name: '校园攻略',
+                        meta: { title: '校园攻略' },
+                        children: [{
+                                path: 'message',
+                                component: MsgMessage,
+                                meta: { title: '修改通知' },
+                            },
+                            {
+                                path: 'addmsg',
+                                component: AddMsg,
+                                meta: { title: '增加通知' },
+                            },
+                        ]
+                    },
+                    {
+                        path: 'paymsg',
+                        component: PayMsg,
+                        // name: '缴费须知',
+                        meta: { title: '缴费须知' },
+                        children: [{
+                                path: 'message',
+                                component: MsgMessage,
+                                meta: { title: '修改通知' },
+                            },
+                            {
+                                path: 'addmsg',
+                                component: AddMsg,
+                                meta: { title: '增加通知' },
+                            },
+                        ]
+                    },
+                    {
+                        path: 'reportmsg',
+                        component: ReportMsg,
+                        // name: '报到须知',
+                        meta: { title: '报到须知' },
+                        children: [{
+                                path: 'message',
+                                component: MsgMessage,
+                                meta: { title: '修改通知' },
+                            },
+                            {
+                                path: 'addmsg',
+                                component: AddMsg,
+                                meta: { title: '增加通知' },
+                            },
+                        ]
+                    },
+
+                ]
+            },
+            {
+                path: 'manageuser',
+                component: ManageUser,
+                meta: { title: '权限管理' },
+                children: [{
+                        path: '',
+                        component: Statistic,
+                        meta: { title: '用户统计' },
+                    },
+                    {
+                        path: 'builduser',
+                        component: Builduser,
+                        meta: { title: '生成用户' },
+                    },
+                    {
+                        path: 'statistic',
+                        component: Statistic,
+                        meta: { title: '用户统计' },
+                    },
+                    {
+                        path: 'muser',
+                        component: Muser,
+                        meta: { title: '管理用户' },
+                        children: [{
+                                path: 'basicuser',
+                                component: BasicUser,
+                                meta: { title: '编辑用户' },
+                            },
+                            {
+                                path: 'basicadmin',
+                                component: BasicAdmin,
+                                meta: { title: '编辑管理员' },
+                                children: [{
+                                    path: 'madetails',
+                                    component: Madetails,
+                                    meta: { title: '管理详情' },
+                                }, ]
+                            },
+
+                        ]
+                    },
+                    {
+                        path: 'mrole',
+                        component: Mrole,
+                        meta: { title: '角色管理' },
+                    },
+                ]
+            },
+            {
+                path: 'logmanage',
+                component: LogMHome,
+                meta: { title: '日志管理' },
+                children: [{
+                        path: '',
+                        component: UserLog,
+                        meta: { title: '用户日志' },
+                    },
+                    {
+                        path: 'userlog',
+                        component: UserLog,
+                        meta: { title: '用户日志' },
+                    },
+                    {
+                        path: 'syslog',
+                        component: SysLog,
+                        meta: { title: '系统日志' },
+                    },
+                ]
+            },
+            {
+                path: 'message',
+                component: Message,
+                meta: { title: '通知面包屑' },
+                children: [{
+                        path: '',
+                        component: MsgValue,
+                        meta: { title: '通知' },
+                    },
+                    {
+                        path: 'msglist',
+                        component: MsgList,
+                        meta: { title: '通知列表' },
+                    },
+                    {
+                        path: 'msgvalue',
+                        component: MsgValue,
+                        meta: { title: '通知' },
+                    },
+                ]
+            },
+            {
+                path: 'login',
                 component: Log,
+                meta: { title: '登录' },
             }, {
-                path: '/login/findId',
+                path: 'findId',
                 component: FindId,
+                meta: { title: '查找学号' },
             },
             {
-                path: '/login/log',
-                component: Log,
-            },
-            {
-                path: '/login/findPassword',
+                path: 'findPassword',
                 component: FindPassword,
-            }
-        ]
-    },
-    {
-        path: '/message',
-        component: Message
-    },
-    {
-        path: '/home',
-        component: SSHome,
-        children: [{
-                path: '/smanager/home',
-                component: SMHome,
+                meta: { title: '忘记密码' },
             },
             {
-                path: '/smanager/informm',
-                component: InformM,
-            },
-            {
-                path: '/smanager/managerm',
-                component: ManagerM,
-            },
-            {
-                path: '/smanager/userm',
-                component: UserM,
-            },
-            {
-                path: '/smanager/builduser',
-                component: Builduser,
-            },
-            {
-                path: '/smanager/buildadmin',
-                component: Buildadmin,
-            },
-            {
-                path: '/smanager/muser',
-                component: Muser,
-            },
-            {
-                path: '/smanager/madmin',
-                component: Madmin,
-            },
-            {
-                path: '/smanager/basicuser',
-                component: BasicUser
-            },
-            {
-                path: '/smanager/basicadmin',
-                component: BasicAdmin
-            },
-            {
-                path: '/smanager/caogao',
-                component: Caogao
-            },
-            {
-                path: '/manager/home',
-                component: MHome,
-            },
-            {
-                path: '/manager/pay',
-                component: Pay,
-            },
-            {
-                path: '/manager/report',
-                component: MReport,
-            },
-            {
-                path: '/manager/status',
-                component: Status,
-            },
-            {
-                path: '/manager/findbyid',
-                component: FindById,
-            },
-            {
-                path: '/student/home',
-                component: Home,
-            },
-            { //事务处理
-                path: '/student/affair',
-                component: Affair,
-            },
-            {
-                path: '/student/information',
-                component: Information,
-            },
-            {
-                path: '/student/report',
+                path: 'report',
                 component: Report,
-            },
-            { //校园攻略
-                path: '/student/strategy',
-                component: Strategy,
+                meta: { title: '报道流程' },
+                children: [{
+                        path: '',
+                        component: ReInfo,
+                        meta: { title: '信息确认' },
+                    },
+                    {
+                        path: 'info',
+                        component: ReInfo,
+                        meta: { title: '信息确认' },
+                    },
+                    {
+                        path: 'localpay',
+                        component: Localpay,
+                        meta: { title: '学费支付' },
+                    },
+                    {
+                        path: 'reportinfo',
+                        component: ReportInfo,
+                        meta: { title: '报到信息' },
+                    },
+                    {
+                        path: 'reportnow',
+                        component: ReportNow,
+                        meta: { title: '现场报道' },
+                    },
+                    {
+                        path: 'affair',
+                        component: Affair,
+                        meta: { title: '事务处理' },
+                    },
+                ]
             },
             {
-                path: '/student/tuition',
-                component: Tuition,
+                path: 'person',
+                component: Person,
+                meta: { title: '个人中心' },
+                children: [{
+                        path: '',
+                        component: StuInfo,
+                        meta: { title: '个人资料' },
+                    },
+                    {
+                        path: 'info',
+                        component: StuInfo,
+                        meta: { title: '个人资料' },
+                    },
+                    {
+                        path: 'updatepwd',
+                        component: UpdatePwd,
+                        meta: { title: '修改密码' },
+                    },
+
+                ]
             },
-            {
-                path: '/student/modify_info',
-                component: Modify_info,
-            },
-            {
-                path: '/student/check_info',
-                component: Check_info,
-            },
-            {
-                path: '/student/localpay',
-                component: Localpay,
-            },
+
         ]
     },
-    {
-        path: '/updatepassword',
-        component: UpdatePssword
-    },
-    {
-        path: '/login',
-        component: Login,
-        children: [{
-                path: '',
-                component: Log,
-            }, {
-                path: '/login/findId',
-                component: FindId,
-            },
-            {
-                path: '/login/log',
-                component: Log,
-            },
-            {
-                path: '/login/findPassword',
-                component: FindPassword,
-            }
-        ]
-    },
+
 
 ]
 
@@ -234,71 +427,9 @@ const router = new VueRouter({
     routes
 })
 
-// //全局守卫(局部守卫在vue中)
-// router.beforeEach((to, from, next) => {
-//     if (to.path == '/login' || to.path == '/message' || to.path == '/login/log' || to.path == '/login/findId' || to.path == '/login/findPassword') {
-//         next();
-//     } else {
-//         if (store.state.id != "") {
-//             next();
-//         } else {
-//             alert('请先登录');
-//             next('/login');
-//         }
-
-//     }
-// });
-//     if (to.path === '/login' || to.path === '/') {
-//         store.commit("clearId");
-//         next();
-//     } else if (to.path === '/message') {
-//         if (store.state.msgId == 0) {
-//             next('/login');
-//         } else {
-//             next();
-//         }
-//     } else {
-//         if (store.state.code == 0) {
-//             if (to.path === '/login/findId') {
-//                 next();
-//             } else if (to.path === '/login/findPassword') {
-//                 next();
-//             } else if (to.path === '/login/log') {
-//                 next();
-//             } else {
-//                 alert("请先登录");
-//                 next('/login');
-//             }
-//         } else {
-//             if (to.path === '/student') {
-//                 if (store.state.code === 3) {
-//                     next();
-//                 } else {
-//                     alert("请先登录");
-//                     next('/login');
-//                 }
-//             } else if (to.path === '/manager') {
-//                 if (store.state.code === 2) {
-//                     next();
-//                 } else {
-//                     alert("请先登录");
-//                     next('/login');
-//                 }
-//             } else if (to.path === '/smanager') {
-//                 if (store.state.code === 1) {
-//                     next();
-//                 } else {
-//                     alert("请先登录");
-//                     next('/login');
-//                 }
-//             } else {
-//                 next();
-//             }
-//         }
-
-//     }
-// })
-
-
-
+// Vue.use(Router)
+const VueRouterPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(to) {
+    return VueRouterPush.call(this, to).catch(err => err)
+}
 export default router

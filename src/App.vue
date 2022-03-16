@@ -16,4 +16,7 @@ export default {
   padding: 0;
   margin: 0;
 }
+body .el-table th.gutter{
+  display: table-cell!important;
+}
 </style>
